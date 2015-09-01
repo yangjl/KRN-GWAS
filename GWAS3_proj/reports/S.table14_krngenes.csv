@@ -1,0 +1,13 @@
+ClosestFGS Query Chr Position HSPno Coverage E.value PercID Quality Distance_bp set chr source feature start end score strand frame
+GRMZM2G033359 GH3.8  3 194426311 17 73.3 0 79.8 58.50% overlapping auxin 3 ensembl gene 194424615 194428239 . - .
+GRMZM2G035243 SAUR23  1 15159500 878 8.3 4e-05 90 7.50% 10475.5 auxin 1 ensembl gene 15168789 15171560 . + .
+GRMZM2G053338 GH3.8  7 162671430 1 75 0 99.4 74.60% overlapping auxin 7 ensembl gene 162669667 162672151 . - .
+GRMZM2G113135 SAUR56  5 22998408 67 91.7 2e-120 90 82.50% overlapping auxin 5 ensembl gene 22998056 22998869 . + .
+GRMZM2G143187 SAUR23  9 154099139 732 8.8 3e-06 90.4 7.90% 864.5 auxin 9 ensembl gene 154096524 154099391 . - .
+GRMZM2G168704 crr1 3 5810223 119 76.4 5e-107 87.2 66.60% 13378.5 cytokinin 3 ensembl gene 5823074 5823678 . + .
+GRMZM2G176841 AUX1  3 201183669 336 8.2 7e-21 87.6 7.20% overlapping auxin 3 ensembl gene 201182487 201185704 . + .
+GRMZM2G177220 ARR11  3 165899958 8 58.5 0 99.4 58.10% overlapping cytokinin 3 ensembl gene 165897260 165901223 . + .
+GRMZM2G303463 ARF12  2 227269027 135 9.2 1e-60 89.7 8.20% 2593.5 auxin 2 ensembl gene 227264500 227268560 . + .
+GRMZM2G412085 SAUR23  3 2812486 977 8.1 1e-04 89.7 7.30% overlapping auxin 3 ensembl gene 2811806 2813735 . + .
+GRMZM2G456644 SAUR11  10 141552754 641 7.9 6e-08 89.5 7.10% overlapping auxin 10 ensembl gene 141552329 141553228 . + .
+GRMZM2G471304 SAUR14  4 236378987 557 63.1 5e-10 73.6 46.50% overlapping auxin 4 ensembl gene 236378470 236379262 . - .
