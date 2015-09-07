@@ -36,28 +36,34 @@ krnibm08 <- ibm[, 2:3]
 krnibm08$Year <- 8;
 krnibm08$Location <- "Johnson"
 names(krnibm08)[2] <- "KRN"
-
+krnibm09$block <- 1
+krnibm09$plot <- 1
 ########## 2008 and 2009
-krn0809 <- read.csv("0809_fmt.nam_raw.csv")
+krn0809 <- read.csv("largedata/0809_fmt.nam_raw.csv")
 dim(krn0809)
 krn0809$KRN <- krn0809$KRN*2+2
 head(krn0809)
 krn0809$Location <- "Curtiss"
-
+krnibm09$block <- 2
+krnibm09$plot <- 2
 ########## 2010
-krn10 <- read.csv("10NAM_KRN_raw.csv")
+krn10 <- read.csv("largedata/10NAM_KRN_raw.csv")
 krn10 <- krn10[!is.na(krn10$KRN),]
 krn10 <- krn10[,2:7]
 krn10$Year <- "Y10"
 krn10$Location <- "Curtiss"
 names(krn10) <- names(krn0809)
 head(krn10)
+krn10$block <- 3
+krn10$plot <- 3
 
 ############ 2010g
-krn10g <- read.csv("10g_pheno_NAM_RIL_KRN_raw.csv")
+krn10g <- read.csv("largedata/10g_pheno_NAM_RIL_KRN_raw.csv")
 krn10g <- krn10g[!is.na(krn10g$KRN),]
 krn10g$Year <- "10g"
 krn10g$Location <- "HawaiiRes"
+krn10g$block <- 4
+krn10g$plot <- 4
 
 ########### 2011
 krn11 <- read.csv("~/Documents/Heterosis_GWAS/pheno2011/krn11_NAMRIL_051612.csv")
