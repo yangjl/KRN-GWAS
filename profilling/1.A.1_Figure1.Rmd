@@ -1,0 +1,101 @@
+---
+title: "Figure 1: reanalysis"
+output: html_notebook
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE) 
+knitr::opts_knit$set(root.dir=normalizePath('../')) 
+#library(tidyverse)
+#library("sommer")
+#Read Meta data
+
+```
+
+## Phenotypic data:
+
+```{r, eval=FALSE}
+## GWAS population
+p1 <- read.csv("largedata/Table_S1.pheno6230.csv")
+p1$type <- "GWAS population"
+p1$Internal_id <- p1$Genotype
+p1$accessionID <- NA
+
+
+## genetic validation population
+p2 <- read.csv("largedata/Table_S9.cv_samples.csv")
+p2$type <- "validation population"
+p2$Subpopulation <- NA
+
+cols <- c("type", "Genotype", "Population", "Subpopulation", "Internal_id", "accessionID", "KRN")
+pheno <- rbind(p1[, cols], p2[, cols])
+write.table(pheno, "data/S1.KRN_phenotype_N7332.csv", sep=",", row.names=FALSE, quote=FALSE)
+```
+
+## Plot phenotypic distribution
+
+```{r}
+pheno <- read.csv("data/S1.KRN_phenotype_N7332.csv")
+
+
+library("ggplot2")
+library("cowplot")
+
+#par(mar=c(5,4,4,2))
+par(font=2, font.lab=2, font.axis=2)
+fsize = 16 # absolute font size
+
+makeTransparent = function(..., alpha=0.5) {
+
+  if(alpha<0 | alpha>1) stop("alpha must be between 0 and 1")
+  alpha = floor(255*alpha)  
+  newColor = col2rgb(col=unlist(list(...)), alpha=FALSE)
+  .makeTransparent = function(col, alpha) {
+    rgb(red=col[1], green=col[2], blue=col[3], alpha=alpha, maxColorValue=255)
+  }
+  newColor = apply(newColor, 2, .makeTransparent, alpha=alpha)
+  return(newColor)
+}
+
+## get colors
+mycols <- makeTransparent(c("blue", "orange", "red", "green"), alpha=0.5)
+
+ph1 <- subset(pheno, type %in% "GWAS population")
+p1 <- ggplot(data=ph1) +
+    geom_density(aes(x= KRN, y=..scaled.., fill= as.factor(Population)), trim=TRUE ) +
+    #guides(color=guide_legend("GWAS Population"))
+    #labs(y=NULL, fill="Traits") +
+    scale_fill_manual("GWAS Populations", 
+                        values = mycols,
+                      labels=c("BxRILs (N=692)", "Diallel (N=225)", "MxRILs (N=289)", "NAM RILs (5,024)")) +
+    guides(alpha=FALSE) +
+    theme(legend.position = c(0.6, 0.6) ) +
+    geom_vline(xintercept = c(10.8, 17.1), color=c("red", "blue"), size=1) +
+    xlim(5, 30) + 
+    ylab("")
+    
+ph21 <- subset(pheno, type %in% "validation population" & Population %in% "Elite Inbred lines")
+ph22 <- subset(pheno, type %in% "validation population" & Population %in% "USDA germplasm")
+
+ph2 <- rbind(ph21, ph22)
+
+p2 <- ggplot(data=ph2) +
+    geom_density(aes(x= KRN, y=..scaled.., fill= as.factor(Population)), trim=TRUE) +
+    scale_fill_manual("Validation Populations", 
+                        values = mycols[c(1,3)],
+                      labels=c("Elite Inbreds (N=208)", "Extreme KRN Lines (N=606)")) +
+    guides(alpha=FALSE) + 
+    theme(legend.position = c(0.6, 0.8)) +
+    geom_vline(xintercept = c(10.8, 17.1), color=c("red", "blue"), size=1) +
+    xlim(5, 30) + 
+    xlab("KRN values") + 
+    ylab("")
+    
+
+pdf("graphs/Figure1_phenotype.pdf")
+plot_grid(p1, p2, labels = c("A", "B"), nrow=2, align="v")
+dev.off()
+
+```
+
+
